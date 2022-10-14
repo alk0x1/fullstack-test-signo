@@ -1,6 +1,5 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { BasicFormExample } from './Form';
+import { BasicFormExample } from './pages/Form';
+import { ListEnquetes } from './pages/ListEnquetes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -8,6 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
       <BasicFormExample/>
+      <ListEnquetes/>
       </header>
     </div>
   );

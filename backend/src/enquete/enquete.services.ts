@@ -1,11 +1,19 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-import { Enquete } from "../@types/enquete";
+import { EnqueteInput, OpcoesDeRespostaInput } from "../@types/enquete";
 
 
 export const enqueteServices = {
-  create: async (enquete: Enquete) => {
-    return await prisma.enquete.create({data: {data_fim: enquete.data_fim, data_inicio: enquete.data_inicio, titulo: enquete.titulo}});
+  save: async (enquete: EnqueteInput) => {
+    prisma.opcoesDeResposta.createMany({data: [{titulo: "a"}]})
+
+    return await prisma.enquete.create(
+      {data: {
+        data_fim: enquete.data_fim,
+        data_inicio: enquete.data_inicio,
+        titulo: enquete.titulo,
+      }
+    });    
   },
   getAll: async () => {
     return await prisma.enquete.findMany();

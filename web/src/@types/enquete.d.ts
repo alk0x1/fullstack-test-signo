@@ -3,11 +3,11 @@ export type Enquete = {
   titulo: string;
   data_inicio: string;
   data_fim: string;
-  opcoes_de_resposta?: string
+  opcoes_de_resposta: string[]
 }
 
 export type OpcoesDeResposta = {
-  id: string;
+  id?: string;
   titulo: string;
-  enquete_id: string;
+  enquete_id?: string;
 }
