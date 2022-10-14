@@ -35,4 +35,4 @@ cd frontend
 yarn ou npm install
 yarn start
 ```
-e se navegador vai abrir a página do formulário
+seu navegador abrirá a página do formulário em localhost:3000
