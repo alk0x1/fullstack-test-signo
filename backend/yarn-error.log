@@ -1,5 +1,5 @@
 Arguments: 
-  D:\node\node.exe C:\Users\alanl\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add body-parser
+  D:\node\node.exe C:\Users\alanl\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add cors
 
 PATH: 
   D:\Vmware\bin\;C:\Python310\Scripts\;C:\Python310\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\node\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;D:\mingw\bin;C:\Users\alanl\.cargo\bin;D:\Ruby31-x64\bin;C:\Users\alanl\scoop\shims;C:\Users\alanl\AppData\Local\Microsoft\WindowsApps;D:\Microsoft VS Code\bin;C:\Users\alanl\AppData\Roaming\npm
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'D:\Desktop\TI\signo_fullstack_teste\node_modules\prisma\engines\f352a33b70356f46311da8b00d83386dd9f145d6\query_engine-windows.dll.node'
+  Error: ENOENT: no such file or directory, copyfile 'C:\Users\alanl\AppData\Local\Yarn\Cache\v6\npm-@prisma-client-4.4.0-45f59c172dd3621ecc92d7cf9bc765d85e6c7d56-integrity\node_modules\@prisma\client\scripts\colors.js' -> 'D:\Desktop\TI\signo_fullstack_teste\backend\node_modules\@prisma\client\scripts\colors.js'
 
 npm manifest: 
   {
@@ -24,6 +24,7 @@ npm manifest:
     "license": "MIT",
     "dependencies": {
       "@prisma/client": "^4.4.0",
+      "body-parser": "^1.20.1",
       "dotenv": "^16.0.3",
       "express": "^4.18.2",
       "prisma": "^4.4.0",
@@ -33,6 +34,7 @@ npm manifest:
       "dev": "ts-node-dev ./src/app.ts"
     },
     "devDependencies": {
+      "@types/body-parser": "^1.19.2",
       "@types/express": "^4.17.14",
       "@types/node": "^18.8.5",
       "ts-node-dev": "^2.0.0"
@@ -109,7 +111,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.3.tgz#472eaab5f15c1ffdd7f8628bd4c4f753995ec79e"
     integrity sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==
   
-  "@types/body-parser@*":
+  "@types/body-parser@*", "@types/body-parser@^1.19.2":
     version "1.19.2"
     resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.2.tgz#aea2059e28b7658639081347ac4fab3de166e6f0"
     integrity sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==
@@ -227,7 +229,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
     integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
   
-  body-parser@1.20.1:
+  body-parser@1.20.1, body-parser@^1.20.1:
     version "1.20.1"
     resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.20.1.tgz#b1812a8912c195cd371a3ee5e66faa2338a5c668"
     integrity sha512-jWi7abTbYwajOytWCQc37VulmWiRae5RyTpaCyDcS5/lMdtwSz5lOpDE67srw/HYe35f1z3fDQw+3txg7gNtWw==
