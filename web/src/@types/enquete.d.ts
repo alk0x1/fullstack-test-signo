@@ -11,3 +11,10 @@ export type OpcoesDeResposta = {
   titulo: string;
   enquete_id?: string;
 }
+
+// export type Result = {
+//   option: string;
+//   votes: number;
+// }
+
+export type Result = { [index: string]: number }

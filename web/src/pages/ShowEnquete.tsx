@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
-import { Enquete } from '../@types/enquete';
+import { Enquete, Result } from '../@types/enquete';
 import { checkStatus } from '../utils';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -14,6 +14,15 @@ export function ShowEnquete() {
   let { id } = useParams(); 
   const [enquete, setEnquete] = useState<Enquete>();
   const [option, setOption] = useState('');
+  const [result, setResult] = useState<Result>();
+  const [votes, setVotes] = useState<string[]>([]);
+  
+  let status: string = '';
+
+  if (enquete?.data_inicio && enquete?.data_fim) {
+    status = checkStatus(enquete?.data_inicio, enquete?.data_fim);
+  }
+
 
   useEffect(() => {
     const requestOptions = {
@@ -22,17 +31,25 @@ export function ShowEnquete() {
     fetch(`http://localhost:5001/get/${id}`, requestOptions)
         .then(response => response.json())
         .then(data => { console.log(data); setEnquete(data)});
+  }, [id]);
 
-  }, []);
+  useEffect(() => {
+    const count = votes.reduce((accumulator: Result, value) => {
+      return {...accumulator, [value]: (accumulator[value] || 0) + 1};
+    }, {});
+
+    setResult(count);
+
+  }, [votes])
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(option)
+
+    setVotes([...votes, option]);
   }
 
-  function WithLabelExample() {
-    const now = 1010;
-    return <ProgressBar now={now} label={`${now}%`} />;
+  function WithLabelExample(votes: number) {
+    return <ProgressBar now={votes} label={`${votes}`} visuallyHidden  />;
   }
 
   return (
@@ -41,10 +58,7 @@ export function ShowEnquete() {
         <Card.Body>
           <Card.Title className="text-center">{enquete?.titulo}</Card.Title>
           <Card.Text>
-            Data de Inicio: {enquete?.data_inicio}
-          </Card.Text>
-          <Card.Text>
-            Data de Término: {enquete?.data_fim}
+            {status}: {enquete?.data_inicio} - {enquete?.data_fim}
           </Card.Text>
           <Card.Subtitle>
             Opções
@@ -52,6 +66,7 @@ export function ShowEnquete() {
           <Form>
             {enquete?.opcoes_de_resposta && enquete?.opcoes_de_resposta.map((op) => (
               <Form.Check
+                disabled={status !== 'Em Andamento'? true : false}
                 key={op}
                 id={`inline-${op}-2`}
                 type={'radio'}
@@ -61,7 +76,7 @@ export function ShowEnquete() {
                 onChange={(e) => setOption(e.target.value)}
               />
             ))}
-            <Button variant="primary" type="submit" onClick={(e)=> handleSubmit(e)}>
+            <Button disabled={status !== 'Em Andamento'? true : false} variant="primary" type="submit" onClick={(e)=> handleSubmit(e)}>
               Enviar
             </Button>
           </Form>
@@ -71,7 +86,8 @@ export function ShowEnquete() {
         <ListGroup.Item
           key={op}
         >
-          {op}: {WithLabelExample()}
+          {op}: {result && result[op]}
+          {result && result[op] && WithLabelExample(result[op])}
         </ListGroup.Item>
       ))}
     </Stack>
