@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Enquete {
+  id                 String      @id @default(uuid())
+  titulo             String
+  data_inicio        String
+  data_fim           String
+  opcoes_de_resposta OpcoesDeResposta[]
+}
+
+model OpcoesDeResposta {
+  id          String      @id @default(uuid())
+  titulo      String
+  enquete     Enquete? @relation(fields: [enquete_id], references: [id])
+  enquete_id  String?
+}
