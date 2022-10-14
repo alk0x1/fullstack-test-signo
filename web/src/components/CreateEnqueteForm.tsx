@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Stack from 'react-bootstrap/Stack';
 import Form from 'react-bootstrap/Form';
 import { Enquete } from '../@types/enquete';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 export function CreateEnqueteForm() {
   // const [enquete, setEnquete] = useState<Enquete>({titulo:'', data_fim: '', data_inicio: ''});
@@ -33,6 +35,11 @@ export function CreateEnqueteForm() {
     progress: undefined,
   });
 
+  // useEffect(() => {
+  //   setOptions(options);
+  //   console.log(options);
+  // },[options]);
+
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -49,6 +56,11 @@ export function CreateEnqueteForm() {
 
     if (dataInicio.length < 10 || dataTermino.length < 10) {
       return notify_error("As datas devem ser escritas no seguinte formato xx/xx/xxxx");
+    }
+
+    if (dataTermino < dataInicio) {
+      return notify_error("A data de termino não pode ser antes da data de inicio");
+
     }
 
     const newEnquete: Enquete = {
@@ -72,6 +84,10 @@ export function CreateEnqueteForm() {
         });
   }
 
+  const removeFromStringArray = (removed: string): string[] => {
+    return options.filter(option => option !== removed);
+  };
+
   return (
     <>
       <Form.Group className="mb-3">
@@ -91,11 +107,21 @@ export function CreateEnqueteForm() {
 
       <InputGroup className="mb-3">
         <Form.Control type="text" placeholder="Opção" onChange={(e) => setNewOption(e.target.value)} />
-        <Button variant="outline-secondary" id="button-addon2" onClick={(e) => setOptions([...options, newOption])}>
+        <Button variant="outline-secondary" id="button-addon2" onClick={() => { setOptions([...options, newOption])}}>
           Adicionar
         </Button>
       </InputGroup>
-
+      <Stack direction="horizontal" gap={3}>
+        {options.map((option, i) => {
+          return option && 
+          <div key={i} >
+            <div key={i} className="bg-light border">
+               {option} 
+               <CloseButton key={i} onClick={() => setOptions(options.filter(op => op !== option))} />
+            </div>
+          </div>
+        })}
+      </Stack >
       <Button variant="primary" type="submit" onClick={(e)=> handleSubmit(e)}>
         Submit
       </Button>
