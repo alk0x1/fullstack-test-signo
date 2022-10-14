@@ -4,7 +4,6 @@ import { enqueteServices } from "./enquete.services";
 
 const prisma = new PrismaClient();
 
-
 export const enqueteControllers = {
   create: async (enqueteInput: EnqueteInput) => {
     const enquete = await enqueteServices.save(enqueteInput);

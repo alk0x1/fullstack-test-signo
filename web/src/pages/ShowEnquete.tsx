@@ -23,7 +23,6 @@ export function ShowEnquete() {
     status = checkStatus(enquete?.data_inicio, enquete?.data_fim);
   }
 
-
   useEffect(() => {
     const requestOptions = {
       method: 'GET',

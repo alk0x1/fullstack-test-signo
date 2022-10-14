@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-import { EnqueteInput, OpcoesDeRespostaInput } from "../@types/enquete";
+import { EnqueteInput } from "../@types/enquete";
 
 
 export const enqueteServices = {

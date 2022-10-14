@@ -3,11 +3,10 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import { Enquete } from '../@types/enquete';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
 
-export function BasicFormExample() {
+export function CreateEnqueteForm() {
   // const [enquete, setEnquete] = useState<Enquete>({titulo:'', data_fim: '', data_inicio: ''});
   const [titulo, setTitulo] = useState('');
   const [dataInicio, setDataInicio] = useState('');
@@ -15,7 +14,7 @@ export function BasicFormExample() {
   const [options, setOptions] = useState(['']);
   const [newOption, setNewOption] = useState('');
 
-  const notify_error = () => toast.error('Necessário adicionar pelo menos 3 opções', {
+  const notify_error = (message: string) => toast.error(message, {
     position: "top-right",
     autoClose: 3900,
     hideProgressBar: false,
@@ -37,9 +36,19 @@ export function BasicFormExample() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    options.shift();
+    if (options && options[0] === '') {
+      options.shift();
+    }
     if (options.length < 3) {
-      return notify_error();
+      return notify_error('Necessário adicionar pelo menos 3 opções');
+    }
+    
+    if (!titulo) {
+      return notify_error("Titulo não pode estar vazio");
+    }
+
+    if (dataInicio.length < 10 || dataTermino.length < 10) {
+      return notify_error("As datas devem ser escritas no seguinte formato xx/xx/xxxx");
     }
 
     const newEnquete: Enquete = {
@@ -48,7 +57,6 @@ export function BasicFormExample() {
       data_fim: dataTermino,
       opcoes_de_resposta: options
     }
-    console.log(newEnquete);
     
     const requestOptions = {
       method: 'POST',
@@ -66,8 +74,6 @@ export function BasicFormExample() {
 
   return (
     <>
-      <ToastContainer />
-      <h1>Criar Enquete</h1>
       <Form.Group className="mb-3">
         <Form.Label>Titulo</Form.Label>
         <Form.Control type="text" placeholder="Titulo da enquete" onChange={(e) => setTitulo(e.target.value)}/>
@@ -93,7 +99,6 @@ export function BasicFormExample() {
       <Button variant="primary" type="submit" onClick={(e)=> handleSubmit(e)}>
         Submit
       </Button>
-      <p><Link to="list">ver suas enquetes criadas</Link></p>
     </>
   );
 }

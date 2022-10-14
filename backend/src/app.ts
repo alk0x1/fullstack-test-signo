@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express()
 app.use(bodyParser.json());
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: `http://localhost:3000` }));
 app.use(routes());
 
 app.listen(process.env.PORT || 5001, () => {
