@@ -3,6 +3,8 @@
 
 <img src="https://user-images.githubusercontent.com/59076746/195950593-05b1314c-11bf-475f-9c03-32fc9fb0c409.png" width="700x700">
 
+![image](https://user-images.githubusercontent.com/59076746/195956623-ce67f096-7b28-4240-96ed-1928ae51b2d7.png)
+
 
 <b>Tecnologias usadas no Backend</b>
 - NodeJs
