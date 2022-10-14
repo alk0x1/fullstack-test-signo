@@ -3,7 +3,7 @@ export type EnqueteInput = {
   titulo: string;
   data_inicio: string;
   data_fim: string;
-  opcoes_de_resposta: OpcoesDeRespostaInput[]
+  opcoes_de_resposta: string[];
 }
 
 export type OpcoesDeRespostaInput = {

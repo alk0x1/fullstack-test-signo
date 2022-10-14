@@ -3,6 +3,9 @@ import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import { Enquete } from '../@types/enquete';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 export function BasicFormExample() {
   // const [enquete, setEnquete] = useState<Enquete>({titulo:'', data_fim: '', data_inicio: ''});
@@ -12,12 +15,35 @@ export function BasicFormExample() {
   const [options, setOptions] = useState(['']);
   const [newOption, setNewOption] = useState('');
 
-  
+  const notify_error = () => toast.error('Necessário adicionar pelo menos 3 opções', {
+    position: "top-right",
+    autoClose: 3900,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+  const notify_sucess = () => toast.success('Enquete criada com sucesso', {
+    position: "top-right",
+    autoClose: 3900,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    options.shift();
+    if (options.length < 3) {
+      return notify_error();
+    }
 
     const newEnquete: Enquete = {
-      titulo,
+      titulo: titulo,
       data_inicio: dataInicio,
       data_fim: dataTermino,
       opcoes_de_resposta: options
@@ -31,11 +57,17 @@ export function BasicFormExample() {
     };
     fetch('http://localhost:5001/createEnquete', requestOptions)
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => {
+          console.log("data: ", data);
+          window.location.reload();
+          notify_sucess();
+        });
   }
 
   return (
     <>
+      <ToastContainer />
+      <h1>Criar Enquete</h1>
       <Form.Group className="mb-3">
         <Form.Label>Titulo</Form.Label>
         <Form.Control type="text" placeholder="Titulo da enquete" onChange={(e) => setTitulo(e.target.value)}/>
@@ -61,6 +93,7 @@ export function BasicFormExample() {
       <Button variant="primary" type="submit" onClick={(e)=> handleSubmit(e)}>
         Submit
       </Button>
+      <p><Link to="list">ver suas enquetes criadas</Link></p>
     </>
   );
 }

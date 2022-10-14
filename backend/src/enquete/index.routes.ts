@@ -8,6 +8,8 @@ export const enqueteRoutes = (): Router => {
   
   router.post('/createEnquete', async (req, res) => {
     const enquete: EnqueteInput = req.body;
+    console.log("enquete: ", enquete);
+
     return res.json(await enqueteControllers.create(enquete));
   });
 
@@ -18,13 +20,13 @@ export const enqueteRoutes = (): Router => {
   router.get('/get/:id', async (req, res) => {
     const id: string = req.params.id;
     console.log('id:', id);
-    return res.json(await enqueteServices.get(id));
+    return res.json(await enqueteControllers.get(id));
   });
 
   router.delete('/delete/:id', async (req, res) => {
     const id: string = req.params.id;
     console.log('id:', id);
-    return res.json(await enqueteServices.get(id));
+    return res.json(await enqueteControllers.delete(id));
   });
 
   return router;
