@@ -14,6 +14,7 @@
 
 <b>Tecnologias usadas no Frontend</b>
 - React
+- Typescript
 - Bootstrap
 
 <b>Instruções para executar localmente:</b>
